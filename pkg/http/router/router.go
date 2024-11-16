@@ -1,4 +1,4 @@
-package http
+package router
 
 import (
 	"github.com/gin-contrib/cors"
@@ -30,7 +30,12 @@ func NewRouter(app *app.Application) *Router {
 	}
 }
 
-func (r *Router) SetupRoutes() {}
+func (r *Router) SetupRoutes() {
+	api := r.engine.Group("/api")
+	v1 := api.Group("/v1")
+
+	NewUserRouter(v1, r.app.UserModule).Setup()
+}
 
 func (r *Router) Run(addr string) error {
 	return r.engine.Run(addr)

@@ -4,7 +4,7 @@ import (
 	"log"
 	"todoList/config"
 	"todoList/pkg/app"
-	"todoList/pkg/http"
+	"todoList/pkg/http/router"
 	"todoList/pkg/repository"
 )
 
@@ -22,7 +22,7 @@ func main() {
 	app := app.NewApplication(db)
 
 	// 라우터 초기화 및 설정
-	router := http.NewRouter(app)
+	router := router.NewRouter(app)
 	router.SetupRoutes()
 	// 서버 시작
 	if err := router.Run(":8080"); err != nil {

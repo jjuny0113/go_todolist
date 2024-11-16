@@ -1,9 +1,13 @@
 package app
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"todoList/pkg/user"
+)
 
 type Application struct {
-	db *gorm.DB
+	db         *gorm.DB
+	UserModule *user.Module
 }
 
 func NewApplication(db *gorm.DB) *Application {
@@ -15,5 +19,5 @@ func NewApplication(db *gorm.DB) *Application {
 }
 
 func (a *Application) setModules() {
-
+	a.UserModule = user.NewModule(a.db)
 }
